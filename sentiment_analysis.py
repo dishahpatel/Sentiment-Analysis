@@ -5,9 +5,12 @@ from textblob import TextBlob
 auth = tweepy.OAuthHandler(config.consumer_key, config.consumer_secret)
 auth.set_access_token(config.access_token, config.access_token_secret)
 
+"""Get a stream of tweets from twitter """
 api = tweepy.API(auth)
 
 query = input("Please enter a keyword to perform a sentiment analysis on: ")
+
+"""TextBlob - library for processing textual data - helping to process nouns, etc """
 
 public_tweets = api.search(str(query))
 neutral = 0
@@ -17,9 +20,11 @@ for tweet in public_tweets:
     analysis = TextBlob(tweet.text)
 
     """Aggregate all the noun phrases within the tweets"""
+
     print(analysis.noun_phrases)
 
     """Calculate the polarity for the collection of tweets containing the query"""
+
     if analysis.sentiment.polarity > 0:
         positive=+1
     elif analysis.sentiment.polarity < 0:
